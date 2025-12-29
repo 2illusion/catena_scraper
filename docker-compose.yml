@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  scraper:
+    build: .
+    container_name: catena-scraper
+    volumes:
+      # Mount output directories to host
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Example: Test mode
+    command: python main.py --test
+    
+  # Full scrape (use with: docker-compose run full-scrape)
+  full-scrape:
+    build: .
+    container_name: catena-scraper-full
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: python main.py
+    profiles:
+      - full
+      
+  # Custom scrape (use with: docker-compose run custom-scrape --volumes 260-263)
+  custom-scrape:
+    build: .
+    container_name: catena-scraper-custom
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    environment:
+      - PYTHONUNBUFFERED=1
+    entrypoint: ["python", "main.py"]
+    profiles:
+      - custom
