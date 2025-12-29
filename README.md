@@ -62,6 +62,7 @@ source venv/bin/activate  # Linux/Mac
 
 ```bash
 pip install -r requirements.txt
+pip install undetected-chromedriver beautifulsoup4 openpyxl python-dateutil
 ```
 
 ### 4. 安装浏览器
